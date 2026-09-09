@@ -1,0 +1,95 @@
+name: Bug
+description: A defect where actual behaviour differs from intended or expected behaviour.
+title: "Bug: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A **Bug** records a defect: actual behaviour differs from intended or expected behaviour.
+
+        Not every defect is deterministically reproducible. Infrastructure, integration, CI, security
+        and intermittent defects may be evidenced by logs, traces, metrics or alerts rather than by
+        reproduction steps — supply evidence in that case.
+
+        Do **not** report security vulnerabilities, credential exposure or suspected secret leakage
+        here. See [SECURITY.md](https://github.com/tucktuck101/homelab/blob/HEAD/SECURITY.md) for private disclosure.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What is wrong, in one or two sentences.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Context / Environment
+      description: >-
+        Where this occurs and under what conditions — system, service, repository, environment,
+        version or commit, host, and when it started.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behaviour
+      description: What should happen, and why that is the expectation.
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behaviour
+      description: What actually happens.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction Steps
+      description: >-
+        Steps to reproduce, where the defect is reproducible. Note the frequency if it is intermittent.
+        Leave blank if reproduction is not applicable and rely on evidence instead.
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: >-
+        Logs, error output, traces, metrics, alerts, screenshots or other supporting evidence. Redact
+        secrets and sensitive infrastructure detail.
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact
+      description: >-
+        Who or what is affected, how severely, and any workaround currently in use.
+    validations:
+      required: true
+  - type: textarea
+    id: known-scope
+    attributes:
+      label: Known Scope
+      description: >-
+        What is known about the extent of the defect — affected components, blast radius, and anything
+        already ruled in or out.
+  - type: textarea
+    id: verification
+    attributes:
+      label: Verification Criteria
+      description: How to confirm the defect is fixed and has not regressed.
+    validations:
+      required: true
+  - type: input
+    id: parent
+    attributes:
+      label: Related Story or Feature
+      description: The Story or Feature this defect relates to, if known.
+      placeholder: "#123"
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: >-
+        Related issues, ADRs, runbooks, dashboards, incident records or external documentation.

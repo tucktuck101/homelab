@@ -1,0 +1,114 @@
+name: Spike
+description: A time-boxed investigation undertaken to reduce uncertainty.
+title: "Spike: "
+labels:
+  - investigate
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A **Spike** is a time-boxed investigative work item used to reduce uncertainty. It normally
+        produces knowledge rather than production functionality.
+
+        Use one to answer a technical or product question, research an unfamiliar area, investigate
+        feasibility or architecture, build a proof of concept, compare alternatives, evaluate a tool or
+        vendor, or gather evidence needed for a decision.
+
+        Raise a Spike rather than guessing whenever material uncertainty prevents safe decomposition or
+        implementation.
+
+        Durable knowledge produced here belongs in documentation or an ADR — link it from **References**
+        rather than leaving it in a closed issue.
+
+        **Findings** and **Recommendation** are expected to be filled in as the Spike progresses.
+  - type: textarea
+    id: question
+    attributes:
+      label: Question / Uncertainty
+      description: The specific question or uncertainty this Spike exists to reduce.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: >-
+        Background needed to investigate — current state, what has already been tried or ruled out, and
+        the work this uncertainty is blocking.
+    validations:
+      required: true
+  - type: textarea
+    id: why-it-matters
+    attributes:
+      label: Why the Answer Matters
+      description: >-
+        What decision, design or work depends on this, and what the cost of getting it wrong would be.
+    validations:
+      required: true
+  - type: textarea
+    id: investigation-scope
+    attributes:
+      label: Scope of Investigation
+      description: >-
+        What will and will not be investigated — options to consider, areas to examine, and explicit
+        boundaries that keep the Spike time-boxed.
+    validations:
+      required: true
+  - type: input
+    id: timebox
+    attributes:
+      label: Timebox
+      description: The effort or elapsed time after which this investigation stops and reports.
+      placeholder: "e.g. 4 hours, 2 days"
+    validations:
+      required: true
+  - type: textarea
+    id: evidence-required
+    attributes:
+      label: Evidence Required
+      description: >-
+        What would constitute a useful result — measurements, comparisons, a working prototype,
+        vendor documentation, a tested configuration or a reasoned recommendation.
+    validations:
+      required: true
+  - type: textarea
+    id: constraints
+    attributes:
+      label: Constraints
+      description: >-
+        Restrictions on the investigation, e.g. available hardware, cost, security boundaries, licensing
+        or systems that must not be touched.
+  - type: textarea
+    id: findings
+    attributes:
+      label: Findings
+      description: Evidence gathered and what it shows. Fill in as the investigation progresses.
+  - type: textarea
+    id: recommendation
+    attributes:
+      label: Recommendation / Conclusion
+      description: >-
+        The answer or recommended course of action, with the reasoning behind it.
+  - type: checkboxes
+    id: follow-up
+    attributes:
+      label: Possible Follow-up Outcomes
+      description: >-
+        Anticipated or actual outcomes of this Spike. Tick and link them from References as they are
+        created.
+      options:
+        - label: An answer or recommendation only
+        - label: A Feature
+        - label: A Story
+        - label: A Task
+        - label: A Bug
+        - label: An ADR
+        - label: A documentation update
+        - label: No further action
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: >-
+        Source material and resulting artifacts — architecture docs, ADRs, standards, vendor
+        documentation, prototypes, related issues.

@@ -1,0 +1,95 @@
+name: Epic
+description: A substantial, outcome-oriented body of related work that decomposes into Features.
+title: "Epic: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        An **Epic** is a substantial outcome-oriented body of related work that may span multiple iterations.
+
+        Its job is to carry enough intent, context, boundaries, requirements and success criteria for a
+        human or agent to derive coherent **Features**. Decomposition of an Epic should produce Features,
+        not implementation Tasks.
+
+        Keep long-lived knowledge in durable documentation (architecture docs, PRDs, ADRs, runbooks,
+        design docs) and reference it here rather than trapping it in this issue body.
+
+        If material uncertainty prevents safe decomposition, raise a **Spike** instead of assuming.
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Outcome
+      description: >-
+        The meaningful outcome or end state this Epic should achieve. Describe what should become
+        possible or materially different, rather than prescribing the implementation.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: >-
+        Why this Epic exists. Include enough background, current state, problems, opportunities or
+        prior decisions for someone unfamiliar with the work to understand its purpose.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: >-
+        The capabilities, problems or areas of work currently considered part of this Epic.
+        Scope may evolve as Features, Stories and Spikes provide more information.
+    validations:
+      required: true
+  - type: textarea
+    id: out-of-scope
+    attributes:
+      label: Out of Scope
+      description: Important boundaries and anything explicitly excluded.
+  - type: textarea
+    id: requirements
+    attributes:
+      label: Requirements
+      description: >-
+        High-level conditions the resulting solution must satisfy — functional, security, reliability,
+        operational, compatibility, accessibility, compliance or otherwise. Constrain decomposition
+        without prescribing unnecessary implementation detail.
+    validations:
+      required: true
+  - type: textarea
+    id: constraints
+    attributes:
+      label: Constraints
+      description: >-
+        Restrictions on the solution space, e.g. hardware, architecture, platforms, budget, time,
+        technology, security boundaries or external dependencies.
+  - type: textarea
+    id: success-criteria
+    attributes:
+      label: Success Criteria
+      description: >-
+        The broad evidence required for this Epic to be considered successfully delivered. Measurable
+        enough to evaluate, but less precise than Feature or Story acceptance criteria.
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies
+      description: >-
+        Significant prerequisites, other work, external systems, decisions or sequencing dependencies.
+  - type: textarea
+    id: unknowns
+    attributes:
+      label: Known Unknowns and Assumptions
+      description: >-
+        Uncertainty that may affect decomposition or delivery, and any assumptions being made.
+        Material uncertainty should be resolved by a Spike rather than an assumption.
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: >-
+        Durable artifacts and supporting information — PRDs, architecture docs, ADRs, Spikes,
+        standards, design material, related issues, external documentation.

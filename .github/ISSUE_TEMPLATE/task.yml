@@ -1,0 +1,73 @@
+name: Task
+description: A concrete, directly executable piece of work within a Story.
+title: "Task: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A **Task** is a concrete piece of executable work, narrow enough for a human or agent to
+        implement directly.
+
+        Ambiguity is least acceptable at this level: the Task must contain enough information to
+        execute *and* verify the work. If it starts to look like a body of work rather than a unit of
+        work, it belongs at Story level or above. If material uncertainty blocks execution, raise a
+        **Spike** instead of guessing.
+
+        Inherit context from the parent Story and linked documentation rather than duplicating it.
+  - type: input
+    id: parent
+    attributes:
+      label: Parent Story
+      description: The Story this Task belongs to.
+      placeholder: "#123"
+    validations:
+      required: true
+  - type: textarea
+    id: objective
+    attributes:
+      label: Objective
+      description: What this Task must accomplish, stated in one or two sentences.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: >-
+        Only what is needed to act and is not already in the parent Story or linked documentation —
+        e.g. affected repositories, systems, files or prior work.
+  - type: textarea
+    id: instructions
+    attributes:
+      label: Requirements / Instructions
+      description: >-
+        What must be done, and any specific requirements, standards or approaches to follow.
+    validations:
+      required: true
+  - type: textarea
+    id: expected-output
+    attributes:
+      label: Expected Output
+      description: >-
+        The concrete artifacts this Task should produce — code, configuration, documentation, tests,
+        pipelines, records or other outputs.
+    validations:
+      required: true
+  - type: textarea
+    id: verification
+    attributes:
+      label: Completion / Verification Criteria
+      description: How to confirm the work is done and correct.
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies
+      description: Anything that must be in place before this Task can be completed.
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: >-
+        Relevant documentation, ADRs, runbooks, related issues or external documentation.

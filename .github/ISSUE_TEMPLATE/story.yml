@@ -1,0 +1,82 @@
+name: Story
+description: An independently meaningful slice of value within a Feature.
+title: "Story: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A **Story** is an independently meaningful slice of stakeholder or user value within a Feature.
+
+        Its job is to carry enough information for a human or agent to derive actionable **Tasks**,
+        **Bugs** or **Spikes** without inventing requirements.
+
+        The `As a ..., I want ..., so that ...` format is welcome but not required — it is often
+        unnatural for platform and infrastructure work. Whatever the wording, make clear **who or what
+        benefits**, **what outcome or behaviour is required**, and **why it matters**.
+
+        Inherit context from the parent Feature and linked documentation rather than duplicating it.
+  - type: input
+    id: parent-feature
+    attributes:
+      label: Parent Feature
+      description: The Feature this Story belongs to.
+      placeholder: "#123"
+    validations:
+      required: true
+  - type: textarea
+    id: story
+    attributes:
+      label: Story / Desired Outcome
+      description: >-
+        Who or what benefits, and the outcome or behaviour required. Use a user-story sentence where it
+        reads naturally, otherwise state the beneficiary and outcome plainly.
+    validations:
+      required: true
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Context / Rationale
+      description: >-
+        Why this matters and anything not already covered by the parent Feature.
+    validations:
+      required: true
+  - type: textarea
+    id: requirements
+    attributes:
+      label: Requirements
+      description: >-
+        What the solution must satisfy for this slice — functional, security, operational or otherwise.
+        Precise enough that Tasks can be derived without inventing requirements.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: Testable criteria that prove this Story is complete.
+    validations:
+      required: true
+  - type: textarea
+    id: constraints
+    attributes:
+      label: Constraints
+      description: Restrictions on how this may be delivered.
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies
+      description: Prerequisites, other work, external systems, decisions or sequencing dependencies.
+  - type: textarea
+    id: unknowns
+    attributes:
+      label: Known Unknowns and Assumptions
+      description: >-
+        Uncertainty affecting decomposition, and assumptions being made. Raise a Spike where
+        investigation is needed.
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: >-
+        Durable artifacts and supporting information — architecture docs, ADRs, design material,
+        runbooks, related issues, external documentation.
