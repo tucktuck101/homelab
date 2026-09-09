@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability disclosure
+    url: https://github.com/tucktuck101/homelab/security/advisories/new
+    about: Report vulnerabilities, credential exposure or suspected secret leakage privately. Never in a public issue.
+  - name: Contribution and access enquiries
+    url: https://github.com/tucktuck101/homelab/blob/HEAD/CONTRIBUTING.md
+    about: How to raise a contribution, review or access request for this project.

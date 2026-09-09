@@ -1,0 +1,97 @@
+name: Feature
+description: A coherent capability within an Epic that decomposes into Stories.
+title: "Feature: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A **Feature** is a coherent capability or significant piece of functionality within an Epic.
+        It should be substantially more precise than its Epic.
+
+        Its job is to carry enough information for a human or agent to derive independently meaningful
+        **Stories**. Do not include implementation instructions that belong in Tasks.
+
+        Inherit context from the parent Epic and linked documentation rather than duplicating it here.
+        Reference durable documentation instead of restating it.
+  - type: input
+    id: parent-epic
+    attributes:
+      label: Parent Epic
+      description: The Epic this Feature belongs to.
+      placeholder: "#123"
+    validations:
+      required: true
+  - type: textarea
+    id: capability
+    attributes:
+      label: Capability / Outcome
+      description: >-
+        The capability this Feature delivers and the outcome it produces. Describe the behaviour that
+        should exist, not how it is built.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: >-
+        Why this Feature is needed and anything not already covered by the parent Epic — current state,
+        problems, prior decisions or relevant background.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: The work, behaviours and areas this Feature covers.
+    validations:
+      required: true
+  - type: textarea
+    id: out-of-scope
+    attributes:
+      label: Out of Scope
+      description: Boundaries and anything explicitly excluded from this Feature.
+  - type: textarea
+    id: requirements
+    attributes:
+      label: Requirements
+      description: >-
+        Conditions this Feature must satisfy — functional, security, reliability, operational,
+        compatibility, accessibility or compliance. Precise enough to constrain Stories.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: >-
+        Verifiable criteria that prove this Feature is complete. Materially more precise than the
+        Epic's success criteria.
+    validations:
+      required: true
+  - type: textarea
+    id: constraints
+    attributes:
+      label: Constraints
+      description: >-
+        Restrictions on the solution space, e.g. architecture, platform, technology, security
+        boundaries, time or external dependencies.
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies
+      description: Prerequisites, other work, external systems, decisions or sequencing dependencies.
+  - type: textarea
+    id: unknowns
+    attributes:
+      label: Known Unknowns and Assumptions
+      description: >-
+        Uncertainty affecting decomposition or delivery, and assumptions being made. Raise a Spike
+        rather than silently resolving material uncertainty.
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: >-
+        Durable artifacts and supporting information — architecture docs, ADRs, PRDs, Spikes,
+        standards, design material, related issues, external documentation.
