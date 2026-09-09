@@ -1,0 +1,39 @@
+# macOS
+.DS_Store
+
+# IDEs / editors
+.vscode/
+.idea/
+
+# Local environment
+.env
+.env.*
+!.env.example
+
+# Secrets / credentials
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.kubeconfig
+kubeconfig
+talosconfig
+secrets.yaml
+secrets.yml
+
+# Temporary files
+*.tmp
+*.swp
+*.bak
+
+# Build / dependency output
+node_modules/
+dist/
+build/
+.cache/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
