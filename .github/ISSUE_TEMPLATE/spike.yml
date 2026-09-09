@@ -21,6 +21,13 @@ body:
         rather than leaving it in a closed issue.
 
         **Findings** and **Recommendation** are expected to be filled in as the Spike progresses.
+  - type: input
+    id: related-work
+    attributes:
+      label: Related Work
+      description: >-
+        The Epic, Feature, Story, Task, Bug, or other work item this Spike supports or is blocking.
+      placeholder: "#123"
   - type: textarea
     id: question
     attributes:

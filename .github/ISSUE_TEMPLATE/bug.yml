@@ -1,4 +1,4 @@
-name: Bug
+name: Bug Report
 description: A defect where actual behaviour differs from intended or expected behaviour.
 title: "Bug: "
 body:
@@ -82,10 +82,11 @@ body:
     validations:
       required: true
   - type: input
-    id: parent
+    id: related-work
     attributes:
-      label: Related Story or Feature
-      description: The Story or Feature this defect relates to, if known.
+      label: Related Work
+      description: >-
+        The Feature, Story, Task, or other work item this defect relates to, if known.
       placeholder: "#123"
   - type: textarea
     id: references
