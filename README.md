@@ -19,6 +19,7 @@ Implementation details that belong to a specific platform component are kept in 
 
 ```text
 docs/
+├── vision.md       Programme goal, claim and scope boundary
 ├── architecture/   System-level architecture and design
 └── adr/            Cross-cutting Architectural Decision Records
 ```
@@ -26,6 +27,8 @@ docs/
 Additional areas will be added as the project grows.
 
 ## Sources of Truth
+
+The goal of the programme and what it is intended to prove are stated in [`docs/vision.md`](docs/vision.md).
 
 The current architecture is documented under [`docs/architecture/`](docs/architecture/).
 
