@@ -46,7 +46,7 @@ Four constraints make this a genuine engineering problem rather than a tooling e
 
 **Not a demonstration.** The platform is intended to run real workloads and to be operated, not staged.
 
-**Not fully autonomous.** Agents act within stated boundaries. Destructive and trust-affecting actions require human approval, and merge authority stays with the human. That is a deliberate design position, not a limitation awaiting removal.
+**Not fully autonomous.** Agents act within stated boundaries. Destructive and trust-affecting actions require human approval. An agent may land a change only where an independent review exists and the human has approved that specific merge; the authority is delegated per merge, never standing, and the human retains it. That is a deliberate design position, not a limitation awaiting removal.
 
 ## How This Document Is Used
 

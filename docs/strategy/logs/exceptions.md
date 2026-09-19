@@ -9,7 +9,12 @@ which is the mechanism that converts a recurring exception into an amended rule.
 Expiry is mandatory. The default is the Task that requested it; the maximum without explicit
 re-approval is one milestone. An expired exception reverts automatically.
 
-| Date | Rule | Action permitted | Reason | Blast radius if wrong | Decision | Expiry |
-|---|---|---|---|---|---|---|
+Two conditions are required (§1.1). Both are recorded, and a later reader must be able to check
+whether each held — an exception whose conditions cannot be re-checked is a log entry, not a
+control. "The same exception" for three-strikes purposes means the **same rule and the same effect**,
+not the same wording.
+
+| Date | Rule | Action permitted | Condition A | Condition B | Evidence both held | Blast radius if wrong | Decision | Expiry |
+|---|---|---|---|---|---|---|---|---|
 
 _No entries. The strategy is not yet accepted, so no rule is binding and no exception is possible._
