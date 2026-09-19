@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | **Status** | Drafting |
-| **Version** | 0.1.0-draft |
+| **Version** | 0.2.0-draft |
 | **Owner** | @tucktuck101 |
 | **Accepted** | Not yet — this document is not binding |
 | **Plan ID** | `M0-E1-F1-S1` |
@@ -19,10 +19,10 @@ Start at **Policy**. It states what you may and may not do; most readers need no
 divider is the argument — *Refine*, *Diagnose*, *Explore* — and exists so the policy can be
 challenged on evidence rather than on taste.
 
-**What is deliberately missing in 0.1.** The autonomy boundary matrix — the per-action-class
-statement of what an agent may do unsupervised — is **not written**. The reason is stated in
-[§1.2](#12-autonomy-boundary--not-yet-written). An interim rule covers the gap. Nothing in this
-version may be cited as a settled autonomy position.
+**What is provisional in 0.2.** The autonomy boundary in [§1.2](#12-the-autonomy-boundary) is
+written, but nothing in it has been earned by measurement, four rows rest on no precedent, and the
+mechanisms that would move it — tests, CI, branch protection, runbooks — do not exist yet. Read it
+as a starting position with its gaps named in §1.2.5.
 
 ---
 
@@ -153,7 +153,7 @@ nothing is deleted, not softened. Rules in this document carry their cost inline
 programme has almost no delivery precedent, so provisional is a common and honest marking.
 
 **Default-deny.** Where this document does not resolve a question, the agent does not resolve it
-either. See [§1.3](#13-interim-rule-while-the-matrix-is-unwritten).
+either: the classifier's last test (§1.2.1, G7) returns **propose and stop**.
 
 **Reversibility is the hard stop.** There is one physical host, no failover, and one reviewer. An
 irreversible action is never authorised by an efficiency argument, however strong. *Forbids:*
@@ -189,54 +189,169 @@ one resting on an agent's assessment of severity or importance, is not an except
 rule being discretionary. *Forbids:* "unless it's urgent". *Costs:* genuinely novel situations have
 no route except escalation.
 
-## 1.2 Autonomy boundary — not yet written
+## 1.2 The autonomy boundary
 
-**Status: open. Owner: the operator. Blocking: nothing in this version depends on it.**
+Two questions, asked in order. **May it?** is answered by the classifier in §1.2.1 — an ordered
+list of tests, first match wins, which resolves an action nobody enumerated as readily as one in
+the table. **Should it?** is answered by §1.2.3. The table in §1.2.2 is the classifier applied to
+sixteen known action classes; it is worked examples, not the rule.
 
-The matrix is meant to answer two questions for each class of action — *may an agent do this
-unsupervised* (risk) and *should an agent be given this work at all* (efficiency) — and to do so as
-a rule that also resolves classes nobody has enumerated yet.
+### 1.2.1 The classifier — may it?
 
-It is not written in 0.1 because the inputs do not exist:
+Four authority levels. There is no fifth, and none of them is "unsupervised".
 
-| Missing input | Consequence |
+| Level | Name | What the agent does |
+|---|---|---|
+| **P** | Propose | Produces the artefact, states what it would do, stops. Executes nothing. |
+| **I** | Instructed | Executes only on an explicit instruction for this specific action, given in this session, quoted verbatim in the artefact. |
+| **R** | Replay | Executes without asking, but only a pre-authorised mechanism — a runbook, a listed tool, a documented procedure — applied to a case that mechanism covers exactly. |
+| **F** | Free | Executes on its own initiative, inside its Task's declared scope. |
+
+**Apply these tests in order. Stop at the first that matches.**
+
+| # | Test | Result |
+|---|---|---|
+| **G1** | Is the action on the never-deferrable list (§1.2.4)? | **Stop.** Operator only. No instruction makes it available. |
+| **G2** | Is it irreversible, or does it change who can do what — credentials, permissions, repository settings, security controls, published state? | **Stop.** Operator only. |
+| **G3** | Would it **change** a rule, convention, policy, runbook or decision record? Drafting or proposing one does not; adopting it does. | **P.** Propose it. An agent never adopts the rules it is governed by, and never adopts a mechanism that would widen its own authority. |
+| **G4** | Does a written mechanism cover this exact case — a runbook step, a listed tool, a documented procedure? | **R.** Execute the mechanism as written. |
+| **G5** | Did the operator instruct this specific action in this session? | **I.** Execute exactly what was instructed, and no more. |
+| **G6** | Is it reversible, inside **this Task's** declared scope, and does it leave no state outside the repository? | **F.** |
+| **G7** | Otherwise | **P.** Propose and stop. |
+
+**The order binds.** Where a mechanism and an instruction both exist, **G4 wins**: the mechanism is
+executed as written, because an instruction MUST NOT silently vary a runbook. To vary one, the
+operator changes the runbook — which is itself a G3 action.
+
+**"This Task" in G6 is literal.** Work an agent produced in an earlier Task is not its own work
+now. This is the rule that `A-08` broke: a document deleted 50 minutes after the same session
+wrote it was, by then, someone else's artefact governed by a written supersession rule.
+
+**G4 is the load-bearing test, and it is narrow.** A mechanism covers a case exactly, or it does
+not cover it. An agent MUST NOT author the mechanism, widen its scope, apply it outside its stated
+bounds, or decide an unlisted case is equivalent to a listed one. **A case the agent believes is
+unambiguous still falls through to G5 or G7 if no mechanism covers it.** *Forbids:* an agent
+extending its own authority by analogy. *Costs:* escalation on cases that would usually have been
+right — and writing the mechanism down is the only way to buy the autonomy back.
+
+**G5 conditions.** An instruction authorises one action. It MUST be quoted verbatim in the artefact
+with the instructing human named; it MUST NOT be tidied, paraphrased or grammar-corrected; standing
+permission does not exist and does not accumulate. **Below 75% confidence in what was asked, the
+agent stops and asks.** Scope is exactly what was instructed: one instruction, one action.
+
+### 1.2.2 The sixteen known classes
+
+Worked output of the classifier. A row disagreeing with the classifier is a defect in the row.
+
+| ID | Action class | May it? | Test | Should it? | Marker |
+|---|---|---|---|---|---|
+| AC01 | Repository reads | **F** | G6 | efficient | direction |
+| AC02 | Branch creation | **F** | G6 | efficient | direction |
+| AC03 | Commit and code modification | **F** in declared scope | G6 | efficient | direction |
+| AC04 | Pull request creation | **F** | G6 | efficient | direction |
+| AC05 | Issue creation, comments, state changes | **F** | G6 | efficient | direction |
+| AC06 | Dependency changes | **I** | G5 | marginal — nothing can verify a dependency bump here | direction · provisional |
+| AC07 | CI and workflow changes | **I** | G5 | marginal | direction · provisional |
+| AC08 | Security control changes | **Stop** | G2 | — | direction |
+| AC09 | Merges | **I**, two conditions | G5 | marginal | direction |
+| AC10 | Deployment | **R** if a runbook covers it, else **I** | G4 → G5 | marginal | direction · provisional |
+| AC11 | Production access — SSH to the host | **R** if a runbook covers it, else **I** | G4 → G5 | marginal | direction |
+| AC12 | Subagent creation | **F** | G6 | efficient | direction |
+| AC13 | External research | **F** | G6 | efficient, bounded by cost | direction |
+| AC14 | Policy, convention and decision-record changes | **P** | G3 | efficient to draft | direction |
+| AC15 | Deletion or destruction | **F** own work in Task · **I** anything else · **Stop** if unrecoverable | G6 / G5 / G2 | — | direction |
+| AC16 | Spending money | **Stop** | G2 | — | direction · provisional |
+
+**AC09 — merges.** Two conditions, both required, neither a judgement call: **an independent code
+review of the change exists**, *and* **the operator approved this merge**. Either absent, the agent
+does not merge. The merge commit quotes the approval verbatim and identifies itself as
+agent-exercised. *Forbids:* merging on a green check, on the absence of objection, or on the
+agent's own review. *Costs:* finished work waits. **When review-queue automation is brought into
+this repository, the first condition is expected to be satisfied mechanically rather than by a
+person — that is a change to this row and needs a decision record, not a reinterpretation.**
+
+**AC11 — the host.** Agents hold SSH access to Kaladesh. Two authorised modes and no third: execute
+a **runbook** step that covers the case exactly (**R**), or execute a **specific action the
+operator approved in this session** (**I**). Improvising on the host is prohibited at every level
+of demonstrated competence, because there is one host and no failover. A runbook is therefore a
+load-bearing artefact: **an unwritten procedure means no autonomous path exists, and writing the
+runbook is how host autonomy widens.** *Forbids:* the diagnostic that becomes a fix. *Costs:*
+recovery waits on the operator whenever the situation is novel — which is exactly when waiting is
+most expensive, and accepted anyway.
+
+**AC03 and AC15 — the small-fix rule.** Inside a file the Task already changes, an agent fixes what
+it finds and names the fix in the pull request body. Outside those files, it records the defect,
+raises an issue, and continues — however small the fix looks. The line is **scope, not size**.
+*Forbids:* the drive-by fix, which is how a change becomes unreviewable. *Costs:* known defects
+stay broken while an issue is raised.
+
+**AC12 — subagents.** A child MUST NOT hold authority its parent lacks; authority is never created
+by delegation. A child's output is a **proposal to its parent**, which verifies it against the
+child's stated acceptance criteria before building on it or reporting it complete.
+
+**AC14 — policy.** An agent may draft any rule, convention or decision record in full, and may
+never adopt one. A decision record's outcome may be written only under G5, quoting the deciding
+human. *Forbids:* an agent widening its own authority by writing the document that grants it.
+
+**Provisional rows.** `AC06`, `AC07`, `AC10` and `AC16` rest on no precedent in this repository —
+no agent has changed a dependency, a workflow, a deployment or spent anything (`D-07`). They are
+starting positions, not earned ones, and are the rows most likely to be wrong.
+
+### 1.2.3 Should it? — the efficiency question
+
+A verdict of `efficient`, `marginal` or `inefficient`, from five properties of the work:
+
+| Property | Agent-efficient | Agent-inefficient |
+|---|---|---|
+| Verifiability | Machine-checkable | Needs human judgement or tacit standards |
+| Context availability | In the repository or linkable | Undocumented history and convention |
+| Standards | Explicit and written down | Learned by osmosis |
+| Reversibility | Cheap to undo | Destructive, stateful, externally visible |
+| Batch size | Small, reviewable increments | Large changesets that shift cost to the reviewer |
+
+**The rule, applied mechanically.** Three or more properties on the left is `efficient`; three or
+more on the right is `inefficient`; anything else is `marginal`.
+
+`inefficient` does not forbid the work. It means **a human doing it directly is cheaper**, and
+giving it to an agent anyway is authorised waste. `marginal` means proceed in the smallest batch
+that produces a reviewable result.
+
+**Every code-touching class is capped at `marginal` today**, because `verifiability` is false for
+all of them: there are no tests, no linters and no CI (`D-04`). That is not pessimism about agents;
+it is the measurement being unavailable. **Building the checks is what moves these verdicts, and it
+is the cheapest autonomy available.**
+
+### 1.2.4 Never deferrable, never delegable
+
+A closed list of five. No instruction, approval or exception makes any of them available, and the
+list does not grow without a decision record.
+
+1. **A credential, secret, key or token in a tracked file.** Unrecoverable once pushed — the
+   repository is public, so rotation becomes the only remedy.
+2. **A disclosure-boundary violation** — host state, private hostnames or internal detail into a
+   public repository.
+3. **A failing deterministic check**, once deterministic checks exist. The one thing permitted to
+   gate.
+4. **Anything that leaves `master` broken for other agents.**
+5. **Anything unrecoverable on Kaladesh** — data loss, destroyed state, or a change that removes
+   the means of reaching the host.
+
+### 1.2.5 What is still missing
+
+Stated so the table is not read as more settled than it is.
+
+| Missing | Consequence |
 |---|---|
-| No CI, tests or linters | `verifiability` is unmeasurable for every code-touching action class |
-| No agreement rate between agent and operator judgment | The promotion criterion has no denominator. It is defined in `#66`, which is downstream of the matrix. |
-| No run-cost tracking | Cost is evidenced as a top-three limiter elsewhere, and is unmeasured here |
-| No delivery precedent outside documentation work | Eight of sixteen action classes have no instance in this repository: dependency changes, CI changes, security controls, agent merges, deployment, production access, subagent creation, spending. See [`evidence/0036-recorded-decisions.md`](evidence/0036-recorded-decisions.md) |
-| No recorded operator positions | The decisions that would ground the risk axis were taken but never written down as decisions. All nine had to be reconstructed from side-effects, and one turned out not to exist |
+| No measured agreement rate | Nothing can be promoted. Every level here is a starting position; the measurement is owed by `#66` |
+| No tests, linters or CI | Every code-touching class capped at `marginal`, and never-deferrable item 3 is currently vacuous |
+| No branch protection | `AC09` rests entirely on the agent obeying it (`D-16`); `#42` owns closing this |
+| No runbooks | `AC10` and `AC11` have no **R** path at all yet, so both collapse to **I** in practice |
+| No run-cost tracking | `AC13`'s cost bound is stated but unmeasurable |
 
-Writing sixteen confident rows against that would be invention with a citation. Two things unblock
-it, and both are scheduled rather than hoped for: the operator's standing positions, recorded as
-decisions; and the first delivery precedent that exercises an action class other than writing
-documents.
-
-Until then, [§1.3](#13-interim-rule-while-the-matrix-is-unwritten) applies.
-
-## 1.3 Interim rule while the matrix is unwritten
-
-**Direction · advisory.** An agent MUST treat any action not explicitly authorised by its own issue
-as **recommend-only**: it prepares the change, states what it would do, and stops. It MUST NOT
-execute.
-
-**Direction · advisory.** An agent MUST NOT take an irreversible or trust-affecting action under any
-circumstances in this version. That includes, without limitation: merging, deleting anything it did
-not create in the current Task, changing repository settings or security controls, publishing,
-deploying, granting access, or spending money.
-
-**Direction · advisory.** Merge authority rests with the operator, absolutely. An agent MUST NOT
-merge its own work or another agent's, in any repository, under any exception.
-
-**This rule is not enforced.** `master` carries no branch protection — verified 2026-09-19, the
-protection API returns 404 — so nothing rejects a push. **No rule in version 0.1 is mechanically
-enforced.** Protecting the branch is owned by `#42`; until it lands, merge authority rests on the
-agent obeying this sentence.
-
-*Forbids:* every action whose authority is ambiguous — which, in this version, is most of them.
-*Costs:* agents will stop on work they were plainly competent to complete, and the operator absorbs
-the interruption. That cost is accepted deliberately for one reason: the failure mode it prevents is
-irreversible on a single host, and the failure mode it creates is an interruption.
+**Promotion.** A row moves only on recorded evidence: a measured agreement rate above its stated
+threshold, or the arrival of a mechanism that changes a property in §1.2.3. A row never moves
+because nothing has gone wrong yet. *Forbids:* widening by accumulated goodwill. *Costs:* autonomy
+stays narrow until someone does the measuring work.
 
 ## 1.4 Concurrency and exclusive resources
 
@@ -344,9 +459,9 @@ noticing when it did not.
 
 | Rule | Marker | Enforcement | On breach |
 |---|---|---|---|
-| Merge authority rests with the operator (§1.3) | direction | advisory — **intended to be enforced, currently is not**; `master` is unprotected, owned by `#42` | Operator reverts; the breach is an incident, not an exception |
-| Recommend-only for unauthorised actions (§1.3) | direction | advisory | Revert; record in the ambiguity log; the gap is a defect in this document |
-| No irreversible or trust-affecting actions (§1.3) | direction | advisory | Stop work; operator assesses blast radius before anything else proceeds |
+| Merges require review and operator approval (§1.2.2 AC09) | direction | advisory — **intended to be enforced, currently is not**; `master` is unprotected, owned by `#42` | Operator reverts; the breach is an incident, not an exception |
+| The classifier's result binds (§1.2.1) | direction | advisory | Revert; record in the ambiguity log; a gap the classifier could not resolve is a defect in this document |
+| Never-deferrable list (§1.2.4) | direction | advisory | Stop work; operator assesses blast radius before anything else proceeds |
 | Sequential by default (§1.4) | direction | advisory | Discard the losing branch's conflicting work; do not hand-merge |
 | Exclusive-resource claims (§1.4) | direction | advisory | Operator breaks the claim and records why |
 | Host work batched into few claims (§1.4) | guidance | advisory | Escalate on the Story |
@@ -392,7 +507,7 @@ issues, and leaves one open by choice.
 
 | # | Area | Status | Where |
 |---|---|---|---|
-| S01 | Agent autonomy boundaries and decision authority | **Open — not written** | §1.2, with the interim rule in §1.3. Blocked on recorded operator positions and on precedent. Decision authority defers to `#16`. |
+| S01 | Agent autonomy boundaries and decision authority | **Addressed** | §1.2 — classifier, sixteen classes, efficiency rule, never-deferrable list. Decision *authority classes* defer to `#16`. |
 | S02 | The Task execution model | Deferred | The execution contract, `#37` — it is operational mechanism, not policy |
 | S03 | Uncertainty and Spike escalation | Deferred | `#15`. This document must not pre-empt the escalation model it will define. |
 | S04 | Parent-context inheritance | **Addressed** | §1.6 |
@@ -401,7 +516,7 @@ issues, and leaves one open by choice.
 | S07 | Evidence expectations | Deferred | `#32` evidence and auditability; conventions in `#20` |
 | S08 | Failure and blocked-work handling | Deferred | `#15` — a blocked agent is an escalation case |
 | S09 | Human Review | Deferred | `#16` decision authority and human review model |
-| S10 | Merge authority | **Addressed** | §1.3 — stated absolutely; enforcement is absent and owned by `#42` |
+| S10 | Merge authority | **Addressed** | §1.2.2 AC09 — two conditions; enforcement is absent and owned by `#42` |
 | S11 | Scope-expansion rules | **Addressed** | §1.7 |
 | S12 | Self-review versus independent review | Deferred | `#16`. Note the standing constraint: there is no independent reviewer, so "independent" cannot mean a second human. |
 | S13 | How agents discover Ready work | Deferred | `#19` work discovery and Project automation |
@@ -435,7 +550,7 @@ after an incident — which is the argument for M0 existing at all.
 
 **Nobody grants full unsupervised autonomy.** Across 250 security operations centres, autonomy runs
 on a staged ladder and no respondent grants full autonomy; 57% require human review of every AI
-verdict. This is the strongest available evidence that §1.3's recommend-only default is normal
+verdict. This is the strongest available evidence that §1.2's default of propose-and-stop is normal
 practice rather than excessive caution, and it is why no version of this strategy will contain a
 "fully autonomous" tier.
 
