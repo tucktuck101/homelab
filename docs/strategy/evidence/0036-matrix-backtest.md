@@ -94,6 +94,13 @@ omitted.
 
 Recorded rather than resolved silently, per `#62`.
 
+> **Test numbers below are as they stood when each ambiguity was found**, and are not renumbered:
+> the classifier was G1–G7 through 0.4 and is G1–G9 from 0.5. The mapping is: old G3 (changes a
+> rule) → **G4**; old G4 (accepted mechanism) → **G6**; old G5 (instruction) → **G7**; old G6
+> (free) → **G8**; old G7 (otherwise) → **G9**. Editing a resolved record to match current
+> numbering would make the audit trail agree with itself retrospectively, which is what
+> `docs/research/README.md` exists to forbid.
+
 | # | Ambiguity | Two readings | Resolution |
 |---|---|---|---|
 | 1 | Does raising an issue that *proposes* a policy change hit G3? | (a) it changes no rule, so G6/**F**; (b) it concerns policy, so G3/**P** | **(a).** G3 asks whether the action *changes* a rule. Proposing is drafting, and `AC14` already says an agent may draft any policy in full. Amendment: G3 reworded from "concern" to **"change"** |
