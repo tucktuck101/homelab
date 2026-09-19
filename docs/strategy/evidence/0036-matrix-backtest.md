@@ -13,7 +13,7 @@ action was wrong, is not yet correct. Corpus: [`0036-recorded-decisions.md`](003
 
 Each row applies §1.2.1's nine tests in order and records the first match.
 
-**Re-run against 0.6.0-draft**, whose tests are G1–G9 and whose `F` level requires a Task. Read the
+**Re-run against 0.7.0-draft**, whose tests are G1–G9 and whose `F` level requires a Task. Read the
 caveat below the table before using any row.
 
 | ID | What happened | First test matched | Level | Matches what was done? |
@@ -44,10 +44,12 @@ caveat below the table before using any row.
 > was taken, and that the classifier forbids.
 >
 > **Route changes across versions.** A-08 resolved at G4 in 0.2 ("a written mechanism covered the
-> case"), then at G7 in 0.3 once *accepted mechanism* required operator acceptance, and now at G9
-> once repository artefacts stopped carrying authority. A-09 moved G5 → G7 → G9 on the same path.
-> The outcome never moved, which is the property you want; the reasoning moved three times, which
-> says the early versions were reaching the right answer for changing reasons.
+> case"), then at G7 in 0.3 once *accepted mechanism* required operator acceptance, then at G9 in
+> 0.4 once repository artefacts stopped carrying authority, and now at **G5** — `AC15b`, deleting
+> work from another Task, a gated class. A-09 moved G5 → G7 → G9 on the same path and stays at G9,
+> since an uninstructed Spike close is in no gated class. The outcome never moved, which is the
+> property you want; A-08's reasoning moved four times, which says the early versions were reaching
+> the right answer for changing reasons.
 
 **Three divergences, not four.** Each is the classifier refusing something that was actually done,
 and in each case the classifier is right and the past action was wrong:
@@ -59,8 +61,9 @@ and in each case the classifier is right and the past action was wrong:
 - **A-08** is the strongest evidence in the corpus. A written rule covered the case exactly and
   said do not delete (`docs/research/README.md`: *"The original stays in place — an audit trail
   that is edited to stay correct is not an audit trail"*). That rule is **not** an accepted
-  mechanism — an agent wrote it an hour earlier and marked it Provisional — so G6 cannot fire and
-  the deletion falls to **G9**. **The agent was bound by a rule that had no authority to bind it,
+  mechanism — an agent wrote it an hour earlier and marked it Provisional — so G6 cannot fire. The
+  deletion is `AC15b`, work from another Task, so **G5** catches it first: no live instruction, so
+  **P**. **The agent was bound by a rule that had no authority to bind it,
   and broke it anyway.** Both halves are findings: an agent-authored convention is not a mechanism,
   and an agent that cannot tell the difference will not stop at either.
 - **A-09** is the near-miss: authority to extend a timebox is not authority to end one. The
@@ -107,11 +110,11 @@ Recorded rather than resolved silently, per `#62`.
 | 2 | Is a runbook itself a policy document under G3? | (a) yes — writing one grants future **R** authority; (b) no — it is operational | **(a), with a consequence.** Writing a runbook widens autonomy, so an agent may draft one and never adopt it. Recorded in `AC11`'s note; the operator accepting a runbook is what makes it a mechanism |
 | 3 | `AC15` deletion: is a file the agent created *in a previous Task* "own work"? | (a) yes, same author; (b) no, different Task | **(b).** A-08 is exactly this case, and reading (a) authorises it. `AC15` reads **own work in Task** — the Task bounds it, not the authorship |
 | 4 | Does G4 or G5 win when both a runbook and an instruction exist? | either | **G4, by order.** If a mechanism covers it, the mechanism is executed as written; an instruction cannot silently vary a runbook. To vary it, the operator changes the runbook |
-| 5 | `AC06` dependency changes — does Dependabot-style automation count as **R**? | (a) yes, a mechanism; (b) no, nothing exists | **Undecided, recorded.** No such mechanism exists here. If one is adopted it must be a decision record, not an inference from this row |
+| 5 | `AC06` dependency changes — does Dependabot-style automation count as **R**? | (a) yes, a mechanism; (b) no, nothing exists | **Undecided when recorded; resolved in 0.6.** No: `AC06` is gated, G5 precedes G6, and accepting a mechanism never widens a gated class |
 
 Ambiguities 1 and 3 produced amendments to the strategy. Ambiguity 2 produced a new statement in
-`AC11`. Ambiguity 4 produced the explicit ordering note in §1.2.1. Ambiguity 5 is open and logged
-in [`../logs/ambiguities.md`](../logs/ambiguities.md).
+`AC11`. Ambiguity 4 produced the explicit ordering note in §1.2.1. Ambiguity 5 was resolved in 0.6 — see
+[`../logs/ambiguities.md`](../logs/ambiguities.md).
 
 ## What this backtest does not prove
 

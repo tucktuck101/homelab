@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | **Status** | Drafting |
-| **Version** | 0.7.0-draft |
+| **Version** | 0.8.0-draft |
 | **Owner** | @tucktuck101 |
 | **Accepted** | Not yet — this document is not binding |
 | **Plan ID** | `M0-E1-F1-S1` |
@@ -19,7 +19,7 @@ Start at **Policy**. It states what you may and may not do; most readers need no
 divider is the argument — *Refine*, *Diagnose*, *Explore* — and exists so the policy can be
 challenged on evidence rather than on taste.
 
-**What is provisional in 0.7.** The autonomy boundary in [§1.2](#12-the-autonomy-boundary) is
+**What is provisional in 0.8.** The autonomy boundary in [§1.2](#12-the-autonomy-boundary) is
 written, but nothing in it has been earned by measurement, four rows rest on no precedent, and the
 mechanisms that would move it — tests, CI, branch protection, runbooks — do not exist yet. Read it
 as a starting position with its gaps named in §1.2.5.
@@ -337,7 +337,7 @@ read a draft procedure at the moment they least want to.
 
 ### 1.2.2 The known action classes
 
-Sixteen numbered classes, two of them split into their gated and free halves — eighteen rows.
+Sixteen numbered classes, two of them split by authority level — eighteen rows.
 Worked output of the classifier, and **derivable from it** — every gated class is reached by G5,
 every free class by G8. **Where a row and the classifier disagree, stop and escalate**; do not
 resolve it yourself in either direction, and record it in
@@ -416,9 +416,10 @@ is not the thing that was approved, and condition 3's guarantee evaporates. An a
 `--merge`. This is also what makes condition 5 checkable — only a merge commit has two parents to
 inspect.
 
-**`master` is an exclusive resource during a landing** (§1.4). The claim is recorded **on the Task
-issue**, and because the resource is repository-wide rather than Task-local, the agent MUST also
-check every open pull request for a live claim before starting. A stale claim on `master` is
+**`master` is an exclusive resource during a landing** (§1.4). Because the resource is
+repository-wide rather than Task-local, the claim is recorded **as a comment on the pull request
+being landed** — the one artefact another agent is certain to find — and mirrored on the Task
+issue. Before starting, an agent MUST check every open pull request for a live claim. A stale claim on `master` is
 broken only by the operator, and only after confirming the previous holder's merge either landed
 or did not.
 
@@ -586,7 +587,7 @@ Stated so the table is not read as more settled than it is.
 | No tests, linters or CI | Every code-touching class capped at `marginal`, and never-deferrable item 3 is currently vacuous |
 | No branch protection | `AC09` rests entirely on the agent obeying it (`D-16`); `#42` owns closing this |
 | No accepted mechanisms | `G6` never fires, so **R** is unreachable. Gated classes would stay at **I** regardless, since G5 precedes G6. No mechanism registry exists and none is planned this milestone; this is a deliberate deferral, not an oversight |
-| No run-cost tracking | `§1.2.3`'s run-cost property is `unknown` for every class except the four whose product is a single call. No bound is set, and `AC12` fan-out is unbounded |
+| No run-cost tracking | `§1.2.3`'s run-cost property is `unknown` for every class except the four whose product is a single call. No enforced cap exists and child spend is untracked; `AC12`'s stated fan-out is a declaration, not a mechanical bound |
 
 **Promotion.** A row moves only on recorded evidence: a measured agreement rate above its stated
 threshold, or the arrival of a mechanism that changes a property in §1.2.3. A row never moves
@@ -765,9 +766,8 @@ reported afterwards is a breach, not an exception.
 
 An exception request states: the rule, the specific action, **the two conditions under which it
 is granted** (§1.1), the evidence that both hold, why the rule should not apply here, the blast
-radius if the judgment is wrong, and the expiry. Those are the columns
-[`logs/exceptions.md`](logs/exceptions.md) records, so a request composed from this paragraph is
-loggable without rework.
+radius if the judgment is wrong, and the expiry. [`logs/exceptions.md`](logs/exceptions.md) records each of those, so a request composed from this
+paragraph is loggable without rework.
 
 **Approval is live, and does not survive the session.** The operator approves, in a working
 session, to the agent about to act — the same rule as any other authority (§1.1). There is no
