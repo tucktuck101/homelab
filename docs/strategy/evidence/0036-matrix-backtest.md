@@ -13,7 +13,7 @@ action was wrong, is not yet correct. Corpus: [`0036-recorded-decisions.md`](003
 
 Each row applies §1.2.1's nine tests in order and records the first match.
 
-**Re-run against 0.5.0-draft**, whose tests are G1–G9 and whose `F` level requires a Task. Read the
+**Re-run against 0.6.0-draft**, whose tests are G1–G9 and whose `F` level requires a Task. Read the
 caveat below the table before using any row.
 
 | ID | What happened | First test matched | Level | Matches what was done? |
@@ -25,7 +25,7 @@ caveat below the table before using any row.
 | A-05 | Wrote `docs/vision.md`, linked from README | **G9** — no Task existed | **P** | **Indeterminate.** See caveat |
 | A-06 | Renamed the Bug form, generalised relationship fields | **G9** — no Task existed | **P** | **Indeterminate.** See caveat |
 | A-07 | Branch named for branch protection | — | — | **Not a divergence. It never happened** |
-| A-08 | **Deleted a 214-line document it had authored 50 minutes earlier** | **G9** — no accepted mechanism, no Task, no live instruction | **P** | **No. The classifier forbids it.** |
+| A-08 | **Deleted a 214-line document it had authored 50 minutes earlier** | **G5** — `AC15b`, deletion of something not created in this Task; no live instruction | **P** | **No. The classifier forbids it.** |
 | A-09 | Closed Spike #57 early on convergence, after two operator extensions | **G9** — the close itself was not instructed | **P** | **No, narrowly.** The extensions were instructed; stopping early was not |
 
 > **The honest caveat, which weakens this table considerably.** Five rows resolve at G9 for a
@@ -95,7 +95,7 @@ omitted.
 Recorded rather than resolved silently, per `#62`.
 
 > **Test numbers below are as they stood when each ambiguity was found**, and are not renumbered:
-> the classifier was G1–G7 through 0.4 and is G1–G9 from 0.5. The mapping is: old G3 (changes a
+> the classifier was G1–G7 through 0.4 and is G1–G9 from 0.5 onward. The mapping is: old G3 (changes a
 > rule) → **G4**; old G4 (accepted mechanism) → **G6**; old G5 (instruction) → **G7**; old G6
 > (free) → **G8**; old G7 (otherwise) → **G9**. Editing a resolved record to match current
 > numbering would make the audit trail agree with itself retrospectively, which is what

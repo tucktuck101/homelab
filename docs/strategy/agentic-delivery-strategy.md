@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | **Status** | Drafting |
-| **Version** | 0.6.0-draft |
+| **Version** | 0.7.0-draft |
 | **Owner** | @tucktuck101 |
 | **Accepted** | Not yet — this document is not binding |
 | **Plan ID** | `M0-E1-F1-S1` |
@@ -19,7 +19,7 @@ Start at **Policy**. It states what you may and may not do; most readers need no
 divider is the argument — *Refine*, *Diagnose*, *Explore* — and exists so the policy can be
 challenged on evidence rather than on taste.
 
-**What is provisional in 0.6.** The autonomy boundary in [§1.2](#12-the-autonomy-boundary) is
+**What is provisional in 0.7.** The autonomy boundary in [§1.2](#12-the-autonomy-boundary) is
 written, but nothing in it has been earned by measurement, four rows rest on no precedent, and the
 mechanisms that would move it — tests, CI, branch protection, runbooks — do not exist yet. Read it
 as a starting position with its gaps named in §1.2.5.
@@ -248,11 +248,11 @@ Four authority levels. There is no fifth, and none of them is "unsupervised".
 | **G1** | Is the action on the never-deferrable list (§1.2.4)? | **Stop.** Operator only. No instruction makes it available. |
 | **G2** | Is the agent handling an **unreported security-sensitive finding** — a credential, key, host state, private hostname, exploitable configuration, or anything whose disclosure is itself the harm? | **Report privately and stop** (§1.7). This test precedes every recording, scope and publication rule, and overrides all of them. Once the finding is reported and the operator has given a live disposition, subsequent actions classify normally. |
 | **G3** | Is it **unrecoverable**, or does it change **who can do what** — credentials, permissions, repository settings, security controls — or does it **publish**? | **Stop.** Operator only. |
-| **G4** | Would it **change** a rule, convention, policy, mechanism or decision record **on the agent's own initiative**? Drafting or proposing does not. **Recording or landing a change the operator has already adopted and instructed is G7, not G4.** | **P.** Propose it. An agent never adopts the rules it is governed by, and never adopts a mechanism that would widen its own authority. |
+| **G4** | Would it **change** a rule, convention, policy, mechanism or decision record **on the agent's own initiative**? Drafting or proposing does not. **Recording a change the operator has already adopted and instructed is G7, not G4** — and *landing* that record on `master` is a separate action, which is a merge and therefore G5. | **P.** Propose it. An agent never adopts the rules it is governed by, and never adopts a mechanism that would widen its own authority. |
 | **G5** | Is it in a **gated class** (see below)? | **I**, on a live operator instruction and on that class's own conditions being met. No instruction → **P**. |
 | **G6** | Does an **accepted mechanism** cover this exact case? | **R.** Execute the mechanism as written. |
 | **G7** | Did the operator instruct this specific action, per the provenance rule in §1.1? | **I.** Execute exactly what was instructed, and no more. |
-| **G8** | Is it **recoverable**, inside **this Task's** declared scope, and does it change **no state outside repository state**? | **F.** |
+| **G8** | Is it **recoverable**, inside **this Task's** declared scope, and does it change **no durable state outside repository state**? | **F.** |
 | **G9** | Otherwise | **P.** Propose and stop. |
 
 **The gated classes, closed for this version.** G5 exists so that class-specific gating lives in
@@ -273,6 +273,7 @@ whatever its reversibility or scope.
 | **Accepted mechanism** | A procedure the operator has accepted, at an exact version, with a recorded acceptance. A draft is not a mechanism, a revoked version is not a mechanism, and **no rule in this document is a mechanism**. **None exists today** — see §1.2.5. |
 | **Publish** | Disclosure or distribution **to an audience that could not already see it** — releases, tags, packages, external announcements, anything posted outside this repository and its tracker. **Deploying repository content to Kaladesh is not publication** (it is `AC10`, gated at G5), and neither is a private security report made under §1.7 through the channel `SECURITY.md` names. |
 | **Merge** | Landing any change on `master`, by any route. A direct push, a fast-forward and a merge commit are all merges (§1.2.2 `AC09`). |
+| **Durable state** | State that outlives the action and that someone other than the acting agent can observe afterwards. The compute a subagent consumes, a process that exits, an HTTP request that reads and returns — these are **not** durable state. Money spent, a file written, a service started, a record created somewhere else — these are. **Unbounded spend is durable** even when nothing is written, which is why `AC12`'s fan-out must be bounded before a subagent is spawned. |
 
 **An agent cannot widen its own scope.** Declared scope comes from the Task **the operator
 directed this agent to**, live. Tasks are authored at pickup and often by an agent, which is
@@ -334,8 +335,9 @@ approval fatigue accumulates in the one channel that carries no expiry, no log a
 signal. *Forbids:* an indefinite queue of identical approvals. *Costs:* the operator is asked to
 read a draft procedure at the moment they least want to.
 
-### 1.2.2 The sixteen known classes
+### 1.2.2 The known action classes
 
+Sixteen numbered classes, two of them split into their gated and free halves — eighteen rows.
 Worked output of the classifier, and **derivable from it** — every gated class is reached by G5,
 every free class by G8. **Where a row and the classifier disagree, stop and escalate**; do not
 resolve it yourself in either direction, and record it in
@@ -356,7 +358,7 @@ it (§1.1), and a gated class never falls through to G8.
 | AC06 | Dependency changes | **I** | G5 | inefficient | direction · provisional |
 | AC07 | CI and workflow changes | **I** | G5 | inefficient | direction · provisional |
 | AC08 | Security control changes | **Stop** | G3 | — | direction |
-| AC09 | Merges — landing anything on `master`, by any route | **I**, three conditions | G5 | marginal | direction |
+| AC09 | Merges — landing anything on `master`, by any route | **I**, five conditions | G5 | marginal | direction |
 | AC10 | Deployment | **I** | G5 | inefficient | direction · provisional |
 | AC11 | Production access — SSH to the host | **I** | G5 | inefficient | direction |
 | AC12 | Subagent creation | **F** | G8 | marginal | direction |
@@ -376,7 +378,7 @@ operator-only, even under a live instruction: it carries nowhere to put the appr
 An operator who wants a direct push does it themselves. This is the one place where an instruction
 does not lift a class, and it is stated here rather than left to G7.
 
-**Four conditions, all required:**
+**Five conditions, all required:**
 
 1. An **independent review** of the change exists.
 2. The **operator approved this specific merge**, live.
@@ -385,20 +387,42 @@ does not lift a class, and it is stated here rather than left to G7.
    `gh pr merge --match-head-commit <SHA>` — so that a head which moved causes the merge to *fail*
    rather than to proceed against a commit nobody approved. Re-reading the head and then merging is
    **not** sufficient: two operations are not one, and the gap between them is the whole exposure.
-4. **The base is bound too.** The approval names the `master` SHA the change was reviewed against.
-   If `master` has moved since, the review is void: rebase or merge `master` in, and obtain a fresh
-   review and approval of the result. Two changes each reviewed against an older base can compose
-   into a state nobody reviewed — which is the composed-effect failure (§1.2.2 `AC10`/`AC11`)
-   arriving through the repository rather than through the host.
+4. **The base is bound, and checked twice.** The approval names the `master` SHA the change was
+   reviewed against — call it `B`. Immediately before invoking the merge the agent re-reads
+   `master`; if it is not `B`, the review is void: merge `master` in, and obtain a fresh review and
+   approval of the result.
+5. **The landing is verified after the fact.** After the merge returns, the agent reads the merge
+   commit and checks that its parents are **exactly `B` and the approved head**. If they are not,
+   a change landed that nobody reviewed in that combination: the agent **stops, does not merge
+   anything further, and reports it as an incident** (§2.1), not as an exception.
+
+**Why condition 5 exists, stated plainly.** GitHub's merge API takes an expected *head*
+(`--match-head-commit`) and there is **no expected-base equivalent**. Condition 4's re-read is
+therefore check-then-act, and two merges approved against the same base can both satisfy it and
+both land — the second composing against a base that moved underneath it. **No rule in this
+document can make that check atomic**, so the answer is detection rather than prevention:
+condition 5 catches it immediately and stops the sequence before a third change compounds it.
+
+**And the operator serialises.** Because condition 4 cannot be made atomic, **the operator
+approves one merge at a time and does not approve a second while the first is unlanded.** The race
+requires two live approvals inside one window, which only the operator can create. This is the
+control; condition 5 is the check that it held. *Forbids:* batching approvals. *Costs:* landings
+are strictly sequential, which is slower than the queue would otherwise allow. **When branch
+protection lands (`#42`), require-branches-up-to-date replaces this with a mechanical guard and
+conditions 4 and 5 can be revisited.**
 
 **The merge method is a merge commit.** Squash and rebase rewrite commits, so the thing that lands
 is not the thing that was approved, and condition 3's guarantee evaporates. An agent MUST use
-`--merge`.
+`--merge`. This is also what makes condition 5 checkable — only a merge commit has two parents to
+inspect.
 
-**`master` is an exclusive resource while a merge is in progress** (§1.4). Claim it before
-condition 3, release it after the merge returns.
+**`master` is an exclusive resource during a landing** (§1.4). The claim is recorded **on the Task
+issue**, and because the resource is repository-wide rather than Task-local, the agent MUST also
+check every open pull request for a live claim before starting. A stale claim on `master` is
+broken only by the operator, and only after confirming the previous holder's merge either landed
+or did not.
 
-Conditions 3 and 4 are what make 1 and 2 mean anything: without them a change can be reviewed,
+Conditions 3, 4 and 5 are what make 1 and 2 mean anything: without them a change can be reviewed,
 approved, and then quietly replaced — or quietly recomposed against a base that moved underneath
 it.
 
@@ -455,7 +479,9 @@ recorded and raised as an issue, however small, and whether or not the file is a
 becomes unreviewable. *Costs:* known defects stay broken while an issue is raised.
 
 **AC12 — subagents.** A child MUST NOT hold authority its parent lacks; authority is never created
-by delegation. A child's output is a **proposal to its parent**, which verifies it against the
+by delegation. **A parent MUST state the fan-out before spawning** — how many children, and what
+bounds their work — because unbounded spend is durable state (§1.2.1) and would put the class
+outside `F`. A spawn whose fan-out cannot be stated is `indeterminate`, and therefore **P**. A child's output is a **proposal to its parent**, which verifies it against the
 child's stated acceptance criteria before building on it or reporting it complete.
 
 **AC14 — policy.** An agent may draft any rule, convention or decision record in full, and may
@@ -739,7 +765,7 @@ reported afterwards is a breach, not an exception.
 
 An exception request states: the rule, the specific action, **the two conditions under which it
 is granted** (§1.1), the evidence that both hold, why the rule should not apply here, the blast
-radius if the judgment is wrong, and the expiry. Those are exactly the columns
+radius if the judgment is wrong, and the expiry. Those are the columns
 [`logs/exceptions.md`](logs/exceptions.md) records, so a request composed from this paragraph is
 loggable without rework.
 
@@ -783,7 +809,7 @@ issues.
 | S07 | Evidence expectations | Deferred | `#32` evidence and auditability; conventions in `#20` |
 | S08 | Failure and blocked-work handling | Deferred | `#15` — a blocked agent is an escalation case |
 | S09 | Human Review | Deferred | `#16` decision authority and human review model |
-| S10 | Merge authority | **Addressed** | §1.2.2 AC09 — four conditions, pull-request route only; enforcement is absent and owned by `#42` |
+| S10 | Merge authority | **Addressed** | §1.2.2 AC09 — five conditions, pull-request route only; enforcement is absent and owned by `#42` |
 | S11 | Scope-expansion rules | **Addressed** | §1.7 |
 | S12 | Self-review versus independent review | Deferred | `#16`. Note the standing constraint: there is no independent reviewer, so "independent" cannot mean a second human. |
 | S13 | How agents discover Ready work | Deferred | `#19` work discovery and Project automation |
