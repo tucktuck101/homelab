@@ -21,7 +21,8 @@ Implementation details that belong to a specific platform component are kept in 
 docs/
 ├── vision.md       Programme goal, claim and scope boundary
 ├── architecture/   System-level architecture and design
-└── adr/            Cross-cutting Architectural Decision Records
+├── adr/            Cross-cutting Architectural Decision Records
+└── research/       Findings from time-boxed investigations
 ```
 
 Additional areas will be added as the project grows.
@@ -33,6 +34,8 @@ The goal of the programme and what it is intended to prove are stated in [`docs/
 The current architecture is documented under [`docs/architecture/`](docs/architecture/).
 
 Architectural decisions and their rationale are recorded under [`docs/adr/`](docs/adr/).
+
+Findings from time-boxed investigations are kept under [`docs/research/`](docs/research/).
 
 GitHub Projects and Issues are used to track planned and active work.
 
