@@ -27,7 +27,7 @@ Four constraints make this a genuine engineering problem rather than a tooling e
 
 **Public by default.** The work is visible while it is being done. Security posture has to be real, not retrofitted before publication.
 
-**Agents do the delivery.** Not autocomplete — agents plan, research, implement, verify and hand off. The human decides, approves and merges.
+**Agents do the delivery.** Not autocomplete — agents plan, research, implement, verify and hand off. The human decides and approves. An agent may land an approved change, but never decides that it should be landed.
 
 ## What Success Looks Like
 

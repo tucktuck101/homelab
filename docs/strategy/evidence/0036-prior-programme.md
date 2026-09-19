@@ -53,7 +53,7 @@ more slack than this one does.
 | Three outcomes; `indeterminate` never renders as `pass` | ADR-0008 — an audit that could not distinguish *disabled* from *unauthorised* reported `indeterminate`; *"`indeterminate` must never render as `pass`"* |
 | Never manufacture a successful outcome | RQA requirements RQA-FR-011/028/037; ADR-0061 — a review without verdict authority escalates, never completes |
 | Replay, never self-authorise | ADR-0037 (replay-only conflict resolution), ADR-0064 (closed tool registry, exact paths), ADR-0065 (conformance before content) |
-| Untrusted content is never instruction | PRD #2006 security implications; ADR-0048 (upstream content containment) |
+| Authority comes only from a live operator statement | PRD #2006 security implications; ADR-0048 (upstream content containment) |
 | Every exception is two named conditions | ADR-0036 — the security-hotfix escape required a CVSS ≥ 7.0 advisory **and** a change touching only the files that fix names |
 
 ## Not verified from here

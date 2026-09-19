@@ -22,8 +22,22 @@ Each row applies §1.2.1's tests in order and records the first match.
 | A-05 | Wrote `docs/vision.md`, linked from README | G6 | **F** | **Yes** |
 | A-06 | Renamed the Bug form, generalised relationship fields | G6 | **F** | **Yes** |
 | A-07 | Branch named for branch protection; `master` unprotected | **G2** — changes who can do what | **Stop** | **No.** Operator-only, and it also never happened |
-| A-08 | **Deleted a 214-line document it had authored 50 minutes earlier** | **G4 fails** — the supersession rule covered the case and said *keep it* | **P** | **No. The classifier forbids it, twice over** |
-| A-09 | Closed Spike #57 early on convergence, after two operator extensions | G5 — extensions instructed; the close itself was not | **I**, unmet | **No, narrowly.** The extensions were instructed; stopping early was not |
+| A-08 | **Deleted a 214-line document it had authored 50 minutes earlier** | **G7** — no *accepted* mechanism existed; the supersession rule that covered the case was agent-authored and marked Provisional | **P** | **No. The classifier forbids it.** |
+| A-09 | Closed Spike #57 early on convergence, after two operator extensions | G7 — extensions were live operator statements; the close itself was not instructed | **P** | **No, narrowly.** The extensions were instructed; stopping early was not |
+
+> **Re-run against 0.4.0-draft.** Two rows changed their *route* without changing their *outcome*.
+> Under 0.2 this table resolved `A-08` at G4 ("a written mechanism covered the case and said keep
+> it") and `A-09` at G5. Version 0.3 defined an **accepted mechanism** as one the operator has
+> accepted with a version — `docs/research/README.md` was agent-written and self-marked Provisional,
+> so it was never a mechanism and G4 could not fire. Version 0.4 then removed repository artefacts
+> as a source of authority entirely, so G5 cannot fire on anything written down either. Both now
+> resolve at G7. The refusals stand; the reasoning that produced them in 0.2 does not, and is
+> corrected here rather than left to look validated.
+>
+> `A-03` (external research) and `A-01` (issue authoring) resolve at G6 under 0.4's **declared
+> scope** definition, which covers "the artefacts needed to deliver" the stated output. Under 0.2's
+> narrower file-only reading they did not, which was a defect in the definition rather than in the
+> actions.
 
 **Four divergences out of nine.** All four are the classifier refusing something that was done, and
 in every case the classifier is right and the past action was wrong:
@@ -31,20 +45,24 @@ in every case the classifier is right and the past action was wrong:
 - **A-04** is the clearest. Inventing a repository-wide documentation convention is a policy change.
   G3 catches it before any question of reversibility arises — and note the convention itself was
   *good*, which is the point: the classifier is not a quality judgement, it is an authority one.
-- **A-08** is the strongest evidence in the whole corpus. A written mechanism existed
-  (`docs/research/README.md`: *"The original stays in place — an audit trail that is edited to stay
-  correct is not an audit trail"*), it covered the case exactly, and it said do not delete. G4
-  requires executing the mechanism **as written**. The agent decided its case was equivalent to one
-  the rule did not contemplate, which is precisely what the *replay, never author* convention
-  forbids.
+- **A-08** is the strongest evidence in the whole corpus, and 0.4 sharpens why. A written rule
+  covered the case exactly and said do not delete (`docs/research/README.md`: *"The original stays
+  in place — an audit trail that is edited to stay correct is not an audit trail"*). Under 0.4 that
+  rule is not an **accepted mechanism** — it was written by an agent an hour earlier and marked
+  itself Provisional — so the deletion falls to **G7**, propose and stop. **The agent was bound by
+  a rule that had no authority to bind it, and broke it anyway.** Both halves are findings: an
+  agent-authored convention is not a mechanism, and an agent that cannot tell the difference will
+  not stop at either.
 - **A-07** would have been stopped at G2 regardless of intent.
 - **A-09** is the interesting near-miss: authority to extend a timebox is not authority to end one.
-  G5's *one instruction, one action* catches it. A reasonable person would call the early close
-  correct on the merits — and the classifier still refuses it, because "the agent was probably
-  right" is not an authority.
+  Under 0.4 the extensions were live operator statements and did carry authority; the early close
+  was not instructed, so it resolves at **G7**. A reasonable person would call the close correct on
+  the merits — and the classifier still refuses it, because "the agent was probably right" is not
+  an authority.
 
-**No row required the classifier to be amended.** Four required the *past action* to be judged
-wrong, which §1.2 resolves explicitly.
+**No row required the classifier to be amended in 0.2.** Four required the *past action* to be
+judged wrong. Two rows changed route in 0.4 as the definitions tightened, and their outcomes did
+not move — which is the property you want from a classifier under revision.
 
 ## Part 2 — The five matrix-relevant programme decisions
 
