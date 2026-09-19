@@ -120,6 +120,6 @@ contains. Eight of sixteen classes — dependencies, CI, security controls, depl
 merges, subagents, spending — have no instance to test against. `AC10`, `AC11` and `AC16` are
 untested in the strongest sense: no agent has ever attempted them here.
 
-The four divergences are also all of one kind: the classifier refusing something that happened. It
+The three divergences are also all of one kind: the classifier refusing something that happened. It
 has not yet been tested against a case where it **permits** something that turns out to be wrong,
 which is the failure mode that matters more and cannot be tested retrospectively.

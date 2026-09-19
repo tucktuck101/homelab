@@ -7,6 +7,10 @@ This log is the document's defect list. An agent that could not determine what t
 ask, records it here — the failure is in the document, not in the agent. Isolated entries trigger an
 amendment; clustered entries mean the diagnosis has moved and the document needs a new phase.
 
+> **Test numbers in older rows are as they stood when recorded.** The classifier was G1–G7
+> through 0.4 and is G1–G9 from 0.5; old G3→G4, old G4→G6, old G5→G7, old G6→G8, old G7→G9.
+> Rows are not rewritten to match current numbering.
+
 | Date | Decision needed | Why the document did not resolve it | Raised by | Outcome |
 |---|---|---|---|---|
 | 2026-09-19 | For each of sixteen action classes, may an agent act unsupervised, and should it be given the work? | Not written in 0.1. The efficiency axis had no measurable inputs and the risk axis no recorded operator positions. | #36 authoring | **Resolved in 0.2.** Operator supplied positions on merge, host access and small fixes; §1.2 written as a classifier. Four rows remain provisional and nothing is earned by measurement. |
