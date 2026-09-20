@@ -1,63 +1,68 @@
 # Strategy
 
-This directory holds the documents that govern **how work is done** in this programme — the rules
-agents and the operator follow, and the reasoning those rules rest on.
+Strategy documents explain how this programme works and why it works that way. They are written
+for a person who needs to make a decision and wants to know what the sensible answer is, and what
+it rests on.
 
-A strategy here is a decision-making instrument, not a statement of intent. Its test is whether it
-resolves a real decision without its author present.
+## What a strategy document is here
 
-## What Belongs Here
+A short piece of documentation. Two to four pages is the working expectation, and a strategy that
+runs much longer has usually stopped being a strategy.
 
-* Rules governing how work is planned, executed, reviewed and accepted
-* The diagnosis those rules answer, written as checkable claims
-* The tradeoffs each rule makes, and what it forbids
+It should contain the situation as it actually is, the position taken, and the reason for that
+position. It should say what it is unsure about. It should be readable in one sitting by someone
+who was not involved in writing it.
 
-## What Does Not Belong Here
+## What a strategy document is not
 
-| Content | Belongs in |
+It is not a specification, a procedure, or a set of rules to be evaluated clause by clause. If a
+document is being written so that it can be applied mechanically, it has changed genre and belongs
+somewhere else.
+
+The first strategy written here learned this the expensive way. It grew to roughly a thousand
+lines of ordered tests, defined terms and per-case conditions, driven by repeatedly asking whether
+an agent could misread it. That is a reasonable question to ask of a contract and the wrong
+question to ask of a strategy, and answering it produced a document nobody wanted to maintain. It
+was replaced by a version about a fifth the length. The history is in git if the detail is ever
+needed.
+
+Practically, the following are signs a strategy document has drifted:
+
+- numbered rules that are meant to be applied in order
+- a glossary of terms defined for the document's own use
+- procedures naming specific commands or flags
+- tables enumerating cases rather than explaining a principle
+- supporting files that exist only to demonstrate the document is self-consistent
+
+Any of these may be legitimate somewhere. None of them belongs here.
+
+## Where other things go
+
+| Content | Goes |
 |---|---|
 | What the programme is for | [`../vision.md`](../vision.md) |
+| A single decision and its reasoning | [`../adr/`](../adr/) |
 | Evidence gathered while reducing uncertainty | [`../research/`](../research/) |
-| A single decision and its consequences | [`../adr/`](../adr/) |
-| How the system is built and behaves | [`../architecture/`](../architecture/) |
-| The mechanics an agent executes step by step | The execution contract |
-| Progress, status or discussion | The issue |
+| How the system is built | [`../architecture/`](../architecture/) |
+| Step-by-step instructions | The runbook or procedure itself |
+| Progress and status | The issue |
 
-**Strategy versus contract.** The strategy carries the diagnosis and the policy — what is permitted,
-what is forbidden, and why. The execution contract carries the operational mechanism an agent runs.
-If a statement answers *why is this the rule*, it is strategy. If it answers *what do I type*, it is
-contract. This boundary was settled in [`../research/0057-agentic-delivery-evidence-base.md`](../research/0057-agentic-delivery-evidence-base.md).
-
-## Naming
-
-```text
-docs/strategy/<topic>-strategy.md
-```
-
-Supporting evidence for a strategy lives in `evidence/`, prefixed with the issue that commissioned
-it. Operational logs a live strategy accumulates live in `logs/`.
+Supporting evidence for a strategy may live in `evidence/`, prefixed with the issue that produced
+it. Keep it to material the strategy actually rests on.
 
 ## Status
 
-Every strategy document carries a status in its header.
+Each document carries a status in its header: **Draft** while it is being written, **Active** once
+it is the position the programme follows, **Retired** when it no longer is, with a note saying why.
 
-| Status | Meaning |
-|---|---|
-| **Drafting** | Being written or revised. Not yet binding. Do not cite it as authority. |
-| **Active** | Accepted by the operator, with a version and date recorded. Binding. |
-| **Retired** | Closed with a stated reason, and a forward link if superseded. Left in place. |
+Retired documents stay where they are. A superseded document is not edited to look correct in
+hindsight.
 
-A retired document is never deleted and never silently edited. An audit trail that is edited to stay
-correct is not an audit trail.
+## Amending
 
-## Versioning and Acceptance
+Change a strategy when something it asserts stops being true, when a position it takes gets in the
+way repeatedly, or when it fails to answer a question it should have answered. Record what changed
+and why. Do not change it because time has passed, and do not extend it to cover a case it was
+never meant to decide.
 
-A strategy becomes `Active` only when the operator records acceptance — version, date, and what was
-accepted — on the Story that commissioned it. Merging a pull request is not acceptance. Nothing
-downstream may cite a document that has not been accepted.
-
-## Convention Status
-
-**Provisional.** This convention was established while writing the first strategy document that
-needed somewhere to live. The programme's documentation and knowledge strategy (`#53`) will either
-adopt it or replace it. Until then, this is the standard.
+Agents may draft strategy documents and amendments. They do not adopt them.
