@@ -27,7 +27,7 @@ Four constraints make this a genuine engineering problem rather than a tooling e
 
 **Public by default.** The work is visible while it is being done. Security posture has to be real, not retrofitted before publication.
 
-**Agents do the delivery.** Not autocomplete — agents plan, research, implement, verify and hand off. The human decides, approves and merges.
+**Agents do the delivery.** Not autocomplete — agents plan, research, implement, verify and hand off. The human decides and approves. An agent may land an approved change, but never decides that it should be landed.
 
 ## What Success Looks Like
 
@@ -46,7 +46,7 @@ Four constraints make this a genuine engineering problem rather than a tooling e
 
 **Not a demonstration.** The platform is intended to run real workloads and to be operated, not staged.
 
-**Not fully autonomous.** Agents act within stated boundaries. Destructive and trust-affecting actions require human approval, and merge authority stays with the human. That is a deliberate design position, not a limitation awaiting removal.
+**Not fully autonomous.** Agents act within stated boundaries. Destructive and trust-affecting actions require human approval. An agent may land a change only where an independent review exists and the human has approved that specific merge; the authority is delegated per merge, never standing, and the human retains it. That is a deliberate design position, not a limitation awaiting removal.
 
 ## How This Document Is Used
 
