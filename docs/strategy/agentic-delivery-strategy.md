@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | Status | Draft, superseding 1.1.0 |
-| Version | 2.0.0-draft |
+| Version | 2.0.1 |
 | Owner | @tucktuck101 |
 | Commissioned by | [#36](https://github.com/tucktuck101/homelab/issues/36) |
 | Evidence | [`../research/0057-agentic-delivery-evidence-base.md`](../research/0057-agentic-delivery-evidence-base.md) |
@@ -32,8 +32,11 @@ being true, the position that rests on it should be revisited.
    recovered by switching to something else.
 3. **The repositories are public while the work is in progress.** Exposure is immediate rather
    than deferred to a release.
-4. **Nothing is mechanically enforced.** There is no CI, no test suite and no branch protection.
-   Every rule here depends on agents following it and on the operator noticing when they did not.
+4. **Almost nothing is mechanically enforced.** There is no CI and no test suite. `master` is
+   protected by a ruleset, so a direct push is refused and every change arrives through a pull
+   request, but the ruleset requires no approving review. The platform therefore prevents an agent
+   from bypassing review; it does not prevent an agent from approving its own work. Everything
+   else here depends on agents following it and on the operator noticing when they did not.
 5. **Agents fill silence with plausible invention.** Three of the nine recorded agent actions in
    this repository were taken without instruction, including one that broke a written rule fifty
    minutes after the same session wrote it.
@@ -80,9 +83,10 @@ Some actions need the operator to be present and to say so at the time. They are
 they are simply not the agent's to initiate.
 
 **Merging.** An agent may land a change once the change has been reviewed by something other than
-the agent that wrote it, and once the operator has approved that specific merge. Merges go through
-a pull request. The reasoning is that `master` has no protection, so the only thing standing
-between unreviewed work and the trunk is this sentence.
+the agent that wrote it, and once the operator has approved that specific merge. The platform
+already requires the pull request and refuses a direct push to `master`, but it asks for no
+approving review, so the review and the approval are the part this document is actually carrying.
+A linear history is required, so changes land squashed or rebased rather than as merge commits.
 
 **The host.** Agents have SSH access to Kaladesh and may run what the operator has asked them to
 run. They do not improvise on it, at any level of demonstrated competence, because there is one
@@ -156,11 +160,14 @@ has not been written and may not need to be.
 
 Stated so that nobody has to discover it later.
 
-None of it is enforced. An agent holding the operator's credentials can do anything those
-credentials permit, and can edit the records that would show it. This document describes an
-agreement, not a control. Branch protection ([#42](https://github.com/tucktuck101/homelab/issues/42))
-and PR validation ([#47](https://github.com/tucktuck101/homelab/issues/47)) are the first real
-controls, and they matter more than any further writing of this kind.
+Most of it is not enforced. `master` is protected, which is more than earlier versions of this
+document claimed, but the ruleset requires no approving review: an agent can open a pull request
+and merge it alone without breaking any platform rule. An agent holding the operator's credentials
+can also edit the records that would show it did. Beyond the trunk, this document describes an
+agreement rather than a control. Raising the required approval count above zero is a small change
+with a large effect and belongs to [#42](https://github.com/tucktuck101/homelab/issues/42); PR
+validation ([#47](https://github.com/tucktuck101/homelab/issues/47)) is the other control worth
+more than further writing of this kind.
 
 Nothing here has been earned by measurement. The positions on deployment, dependencies and
 spending rest on judgement about work that has never been done in this repository.
