@@ -3,9 +3,9 @@
 | | |
 |---|---|
 | **Status** | **Active** |
-| **Version** | **1.0.0** |
+| **Version** | **1.1.0** |
 | **Owner** | @tucktuck101 |
-| **Accepted** | **2026-09-19 by @tucktuck101.** Binding from this version. |
+| **Accepted** | **2026-09-19 by @tucktuck101** at 1.0.0. Amended to 1.1.0 the same day, adding §2.3. Binding. |
 | **Plan ID** | `M0-E1-F1-S1` |
 | **Commissioned by** | [#36](https://github.com/tucktuck101/homelab/issues/36) |
 | **Evidence base** | [`../research/0057-agentic-delivery-evidence-base.md`](../research/0057-agentic-delivery-evidence-base.md) |
@@ -19,7 +19,7 @@ Start at **Policy**. It states what you may and may not do; most readers need no
 divider is the argument — *Refine*, *Diagnose*, *Explore* — and exists so the policy can be
 challenged on evidence rather than on taste.
 
-**What is provisional in 1.0.** The autonomy boundary in [§1.2](#12-the-autonomy-boundary) is
+**What is provisional in 1.1.** The autonomy boundary in [§1.2](#12-the-autonomy-boundary) is
 binding, but **nothing in it has been earned by measurement**: four rows rest on no precedent, the
 agreement rate that would permit promotion does not exist yet (`#66`), and the mechanisms that
 would move the boundary — tests, CI, branch protection, runbooks — have not been built. Accepted
@@ -436,7 +436,7 @@ a change they did not author satisfies it. A second agent satisfies it — and i
 **evidence, not authorisation**: it can find defects, it cannot clear them. An agent reviewing its
 own work never satisfies it, and neither does a child agent reviewing its parent's (§1.6 —
 authority is not created by delegation, and neither is independence). *This definition is for P0
-only; the richer model is `#16`'s, and `§2.3` S12 records why "independent" cannot mean a second
+only; the richer model is `#16`'s, and `§2.4` S12 records why "independent" cannot mean a second
 human here.* **It is decidable when the merge happens and unauditable afterwards**, because one
 account authors everything (`D-17`); that is a known weakness, capped only by the operator
 approving each merge.
@@ -586,16 +586,18 @@ Stated so the table is not read as more settled than it is.
 
 | Missing | Consequence |
 |---|---|
-| No measured agreement rate | Nothing can be promoted. Every level here is a starting position; the measurement is owed by `#66` |
+| No measured agreement rate | Nothing can be promoted. The instrument is defined in §2.3; **no observations exist yet**, and §2.3.6 explains why they cannot until delivery touches a class other than documentation |
 | No tests, linters or CI | Every code-touching class capped at `marginal`, and never-deferrable item 3 is currently vacuous |
 | No branch protection | `AC09` rests entirely on the agent obeying it (`D-16`); `#42` owns closing this |
 | No accepted mechanisms | `G6` never fires, so **R** is unreachable. Gated classes would stay at **I** regardless, since G5 precedes G6. No mechanism registry exists and none is planned this milestone; this is a deliberate deferral, not an oversight |
 | No run-cost tracking | `§1.2.3`'s run-cost property is `unknown` for every class except the four whose product is a single call. No enforced cap exists and child spend is untracked; `AC12`'s stated fan-out is a declaration, not a mechanical bound |
 
-**Promotion.** A row moves only on recorded evidence: a measured agreement rate above its stated
-threshold, or the arrival of a mechanism that changes a property in §1.2.3. A row never moves
+**Promotion.** A row moves only by the procedure in [§2.3.5](#235-the-promotion-rule) — twenty
+sampled verdicts in that class, 90% agreement, no disagreement in which the agent was wider than
+the operator, and the operator recording it as a decision. One level at a time. A row never moves
 because nothing has gone wrong yet. *Forbids:* widening by accumulated goodwill. *Costs:* autonomy
-stays narrow until someone does the measuring work.
+stays narrow until someone does the measuring work. **Demotion needs no threshold** — a single
+over-reach returns a promoted class to its previous level at the operator's word.
 
 ## 1.3 Interim rule — withdrawn
 
@@ -796,7 +798,100 @@ rule MUST be amended rather than exempted a fourth time. This is a hard trigger,
 [`logs/exceptions.md`](logs/exceptions.md). An unrecorded exception did not happen, and cannot count
 towards three strikes.
 
-## 2.3 Coverage and deferrals
+## 2.3 Measurement — the agreement rate
+
+Every position in §1.2 is a starting position. **This section defines the instrument that lets one
+become an earned one.** It is the promotion mechanism, and nothing else is.
+
+**Direction · advisory.** No row in §1.2.2 moves to a wider authority level except by the procedure
+below. Not on the absence of incidents, not on accumulated goodwill, not on an operator's
+impression that things are going well — the evidence says that impression is wrong by roughly forty
+points (see [Refine](#refine)).
+
+### 2.3.1 The unit
+
+One observation is **one classifier verdict**: an agent's stated `(action class, level)` for a
+specific action, recorded before it acts. Not a Task, not a pull request, not a vibe about a
+session. The verdict is the unit because the verdict is what promotion would widen.
+
+The agent records it in [`logs/decisions.md`](logs/decisions.md) as it works, with the action, the
+class, the level reached, and the test that matched.
+
+### 2.3.2 The frame — and the bias it exists to avoid
+
+**Direction · advisory.** The sampling frame is **every verdict**, including:
+
+- verdicts that resolved to `P` and stopped,
+- verdicts that escalated,
+- verdicts the agent recorded as `indeterminate`,
+- verdicts where the operator overruled the agent in either direction.
+
+**It is NOT the set of decisions the strategy settled cleanly.** That set is the easy half by
+construction, and measuring agreement on it would produce a high number that says nothing. This is
+the single most likely way for this instrument to lie, so it is stated as direction rather than
+left to judgement. *Forbids:* quoting a rate computed on successes. *Costs:* the frame includes the
+cases where the agent stopped, which are the least interesting to read and the most numerous.
+
+### 2.3.3 Blinding
+
+**Direction · advisory.** For a sampled verdict, **the operator records their own answer before
+seeing the agent's.** An operator shown the agent's verdict first is anchored by it, and the
+resulting number measures agreement with a suggestion rather than agreement with a judgement.
+
+Sampling rate: **one in five verdicts**, plus every verdict in a class being considered for
+promotion. A verdict not sampled is still logged; it simply carries no agreement datum.
+
+*Forbids:* the retrospective agreement claim. *Costs:* the operator must answer a classification
+question cold, roughly once per five agent actions, before they can see the reasoning.
+
+### 2.3.4 Agreement, defined
+
+A sampled verdict **agrees** when the operator's independent answer names the same authority level.
+Same level, agreement; different level, disagreement — in either direction. **An agent that was
+more cautious than the operator disagrees.** Over-caution is a real cost (§1.0 names it), and a
+rate that counted it as success would drift the boundary tighter while claiming to measure fitness.
+
+```text
+agreement rate (class C) = agreeing sampled verdicts in C / sampled verdicts in C
+```
+
+Computed **per action class**, never programme-wide. A single number across all classes would let
+a hundred easy `AC01` reads carry a promotion for `AC10` deployment.
+
+### 2.3.5 The promotion rule
+
+**Direction · advisory.** A row moves one level wider — and never more than one — when **all four**
+hold:
+
+1. **At least 20 sampled verdicts in that class.** Below that the rate is noise; a threshold on a
+   denominator of five measures nothing.
+2. **Agreement rate ≥ 90% in that class.**
+3. **No disagreement in the sample was a case where the agent was wider than the operator.** One
+   such disagreement resets the count to zero for that class. Over-caution costs time; over-reach
+   costs the host.
+4. **The operator records the promotion as a decision**, naming the class, the rate, the
+   denominator and the date. Promotion is an amendment to this document (`G4`), so an agent may
+   propose one and never adopt it.
+
+**Demotion needs no threshold.** A single over-reach in a promoted class returns it to its previous
+level immediately, at the operator's word.
+
+### 2.3.6 What this cannot do yet
+
+Stated so the instrument is not mistaken for data.
+
+**There is almost nothing to measure.** Eight of sixteen classes have never been exercised
+(`D-07`), and most agent work so far is documentation, which sits at `F` already and has nowhere to
+be promoted to. **The classes most worth promoting — `AC06`, `AC07`, `AC10`, `AC11` — will
+accumulate observations slowest, because they are gated and each one costs an operator
+interruption.**
+
+So this section defines the instrument and **deliberately produces no rate**. A rate computed today
+would rest on documentation work and would later be cited to widen classes it never observed. The
+denominator arrives with delivery volume, which arrives with `#42` and `#47` — which is the same
+conclusion §1.0 reaches from the other direction: **build the checks, and the measurement follows.**
+
+## 2.4 Coverage and deferrals
 
 The Epic (`#4`) names fourteen areas. This version addresses six and defers eight to their owning
 issues.
@@ -881,9 +976,10 @@ learning, and it is in the vision. It must not be justified by expected efficien
 **Not triggers:** time passing; learning something interesting that does not falsify a claim;
 disagreeing with a rule — that is what exceptions are for.
 
-**Still to be defined:** the agreement rate between agent conclusions and operator judgment, its
-sampling method, and the threshold at which autonomy widens. It is owned by `#66` and is a
-precondition for **promoting** any row in §1.2.
+**Defined in §2.3:** the agreement rate between agent conclusions and operator judgment, its unit,
+its sampling frame, the blinding rule and the threshold at which autonomy widens. **No rate has
+been measured**, because the observations do not exist yet — §2.3.6 says why, and says what has to
+happen first.
 
 ---
 
