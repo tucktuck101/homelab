@@ -13,7 +13,8 @@ what the operator would have concluded. That definition is owned by `#66` and is
 | Date | Decision needed | Section applied | Outcome | Operator agreed? |
 |---|---|---|---|---|
 
-_No entries. The strategy is not yet accepted, so nothing has been settled by it._
+_No entries yet. The strategy became `Active` at 1.0.0 on 2026-09-19; entries start from the first
+decision it settles._
 
 ## Pre-strategy baseline
 

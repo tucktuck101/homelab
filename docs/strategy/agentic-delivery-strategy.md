@@ -2,15 +2,15 @@
 
 | | |
 |---|---|
-| **Status** | Drafting |
-| **Version** | 0.8.0-draft |
+| **Status** | **Active** |
+| **Version** | **1.0.0** |
 | **Owner** | @tucktuck101 |
-| **Accepted** | Not yet — this document is not binding |
+| **Accepted** | **2026-09-19 by @tucktuck101.** Binding from this version. |
 | **Plan ID** | `M0-E1-F1-S1` |
 | **Commissioned by** | [#36](https://github.com/tucktuck101/homelab/issues/36) |
 | **Evidence base** | [`../research/0057-agentic-delivery-evidence-base.md`](../research/0057-agentic-delivery-evidence-base.md) |
 | **Update trigger** | Any claim in [Diagnose](#diagnose) becoming false. See [Refine](#refine). |
-| **First review** | To be set on acceptance |
+| **First review** | **2026-10-17**, or on the first agent-executed Story that touches a class other than documentation — whichever comes first. |
 
 ## Reading this document
 
@@ -19,10 +19,13 @@ Start at **Policy**. It states what you may and may not do; most readers need no
 divider is the argument — *Refine*, *Diagnose*, *Explore* — and exists so the policy can be
 challenged on evidence rather than on taste.
 
-**What is provisional in 0.8.** The autonomy boundary in [§1.2](#12-the-autonomy-boundary) is
-written, but nothing in it has been earned by measurement, four rows rest on no precedent, and the
-mechanisms that would move it — tests, CI, branch protection, runbooks — do not exist yet. Read it
-as a starting position with its gaps named in §1.2.5.
+**What is provisional in 1.0.** The autonomy boundary in [§1.2](#12-the-autonomy-boundary) is
+binding, but **nothing in it has been earned by measurement**: four rows rest on no precedent, the
+agreement rate that would permit promotion does not exist yet (`#66`), and the mechanisms that
+would move the boundary — tests, CI, branch protection, runbooks — have not been built. Accepted
+as a deliberate starting position, with its gaps named in §1.2.5. Expect version 1 to be wrong in
+specifics and to need early amendment; under the quality rubric in [Refine](#refine) that is the
+success case, not a failure.
 
 ---
 

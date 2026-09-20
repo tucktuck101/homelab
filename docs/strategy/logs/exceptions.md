@@ -17,4 +17,4 @@ not the same wording.
 | Date | Rule | Action permitted | Condition A | Condition B | Evidence both held | Blast radius if wrong | Decision | Expiry |
 |---|---|---|---|---|---|---|---|---|
 
-_No entries. The strategy is not yet accepted, so no rule is binding and no exception is possible._
+_No entries. The strategy is binding from 1.0.0 (2026-09-19); no exception has been requested._
