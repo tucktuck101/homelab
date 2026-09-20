@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | Status | Draft, superseding 1.1.0 |
-| Version | 2.0.1 |
+| Version | 2.1.0 |
 | Owner | @tucktuck101 |
 | Commissioned by | [#36](https://github.com/tucktuck101/homelab/issues/36) |
 | Evidence | [`../research/0057-agentic-delivery-evidence-base.md`](../research/0057-agentic-delivery-evidence-base.md) |
@@ -57,7 +57,8 @@ The practical consequence is a prohibition. When agent output exceeds the operat
 review it, the response is to make verification cheaper, to work in smaller increments, or to let
 work queue. Granting wider authority to clear a backlog is not available, whatever the backlog
 costs. The prior programme this one draws on did exactly that, and cleared a review queue by
-merging 132 pull requests past 77 outstanding change requests.
+merging 132 pull requests past 77 outstanding change requests
+([`evidence/0036-prior-programme.md`](evidence/0036-prior-programme.md)).
 
 Two questions follow from the principle and are worth asking separately. The first is whether an
 agent may take an action, which turns on reversibility and blast radius. The second is whether it
